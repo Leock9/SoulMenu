@@ -1,6 +1,10 @@
 global using FastEndpoints;
 using FastEndpoints.Swagger;
 using SoulMenu.Api;
+using SoulMenu.Api.Domain.Gateways;
+using SoulMenu.Api.Domain.UseCases;
+using SoulMenu.Api.Infrastructure.PostgreDb;
+using SoulMenu.Api.Infrastructure.PostgreDb.Gateways;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +41,8 @@ builder.Services.AddSingleton<Context>
     sp => new Context
                        (
                         postgreDbSettings!.PostgresConnection
-                        ));
+                       )
+    );
 
 
 // ** SERVICE **
