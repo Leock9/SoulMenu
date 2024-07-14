@@ -1,10 +1,10 @@
-﻿using SoulMenu.Api.Domain.UseCases;
-using SoulMenu.Api.Domain;
+﻿using SoulMenu.Api.Domain;
+using SoulMenu.Api.Domain.UseCases;
 using System.Net;
 
-namespace Endpoints.ItemMenu.Create;
+namespace Endpoints.ItemMenu.GetById;
 
-public sealed class Endpoint : Endpoint<Request, Response, Mapper>
+public class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
     public IItemMenuUseCase? ItemMenuService { get; set; }
@@ -12,19 +12,15 @@ public sealed class Endpoint : Endpoint<Request, Response, Mapper>
     public override void Configure()
     {
         AllowAnonymous();
-        Post("/itemMenu");
+        Get("/itemMenu");
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
         try
         {
-            await SendAsync
-                    (
-                    new Response { ItemMenuId = ItemMenuService?.Create(Map.ToRequest(r)).ToString()!},
-                    ((int)HttpStatusCode.Created),
-                    cancellation: c
-                    );
+            var itemMenus = await ItemMenuService?.GetByIdAsync(r.Id);
+            await SendAsync(Map.ToResponse(itemMenus), cancellation: c);
         }
         catch (DomainException dx)
         {

@@ -63,6 +63,6 @@ internal sealed class Validator : Validator<Request>
 
 public sealed class Response
 {
-    public string Message { get; init; } = string.Empty;
+    public string ItemMenuId { get; init; } = string.Empty;
 }
 

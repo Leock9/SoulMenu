@@ -34,8 +34,9 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "leonardock9@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "pass"
+      PGADMIN_DEFAULT_EMAIL: "pass@pass.com"
+      PGADMIN_DEFAULT_USER: pass
+      PGADMIN_DEFAULT_PASSWORD: pass45455627
     ports:
       - "5050:80"
     depends_on:

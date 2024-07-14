@@ -41,7 +41,7 @@ public class ItemMenuGateway : IItemMenuGateway
         conn.Close();
     }
 
-    public async Task<ItemMenu> Get(Guid id)
+    public async Task<ItemMenu> GetByIdAsync(Guid id)
     {
         await using var conn = _context.GetConnection();
         await conn.OpenAsync();

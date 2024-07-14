@@ -18,7 +18,7 @@ public class ItemMenuUseCase : IItemMenuUseCase
         _logger = logger;
     }
 
-    public void Create(BaseItemMenuRequest itemMenuRequest)
+    public Guid Create(BaseItemMenuRequest itemMenuRequest)
     {
         try
         {
@@ -33,7 +33,10 @@ public class ItemMenuUseCase : IItemMenuUseCase
                 itemMenuRequest.Category
             );
 
+            itemMenu.Activate();
+
             _itemMenuRepository.Create(itemMenu);
+            return itemMenu.Id;
         }
         catch (Exception ex)
         {
@@ -53,14 +56,13 @@ public class ItemMenuUseCase : IItemMenuUseCase
             _logger.LogError(ex, ex.Message);
             throw;
         }
-
     }
 
-    public async Task<ItemMenu> Get(Guid id)
+    public async Task<ItemMenu> GetByIdAsync(Guid id)
     {
         try
         {
-            return await _itemMenuRepository.Get(id);
+            return await _itemMenuRepository.GetByIdAsync(id);
         }
         catch (Exception ex)
         {
@@ -86,7 +88,7 @@ public class ItemMenuUseCase : IItemMenuUseCase
     {
         try
         {
-            var itemMenu = await _itemMenuRepository.Get(itemMenuRequest.Id) ??
+            var itemMenu = await _itemMenuRepository.GetByIdAsync(itemMenuRequest.Id) ??
                                     throw new Exception("Item menu not found");
 
             itemMenu.Update(new ItemMenu
