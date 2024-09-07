@@ -47,7 +47,7 @@ services:
   zap:
     image: zaproxy/zap-stable
     command: >
-      zap-api-scan.py -t http://soulmenu.api:8080/v1/swagger.json -f openapi -r api-scan-report.html
+      zap-api-scan.py -t http://soulmenu.api:8080/itemMenu -f openapi -r api-scan-report.html
     ports:
       - "8090:8090"
     volumes:
