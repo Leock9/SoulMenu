@@ -6,6 +6,9 @@ using SoulMenu.Api.Domain.UseCases;
 using SoulMenu.Api.Infrastructure.PostgreDb;
 using SoulMenu.Api.Infrastructure.PostgreDb.Gateways;
 
+Console.WriteLine("Aguardando 2 minutos para iniciar a execução da Saga...");
+await Task.Delay(120000);
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Logging.AddSimpleConsole(options =>
